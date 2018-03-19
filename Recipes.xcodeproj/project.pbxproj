@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		77B65B6C205FC1050033EE0C /* Recipes.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Recipes.sqlite; sourceTree = "<group>"; };
 		77FAB556205FB5BD00BE7326 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77FAB559205FB5BD00BE7326 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77FAB55E205FB5BD00BE7326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 				77FAB565205FB5BD00BE7326 /* LaunchScreen.storyboard */,
 				77FAB568205FB5BD00BE7326 /* Info.plist */,
 				77FAB560205FB5BD00BE7326 /* Recipes.xcdatamodeld */,
+				77B65B6C205FC1050033EE0C /* Recipes.sqlite */,
 				77FAB571205FB8F200BE7326 /* RecipeListTableViewController.swift */,
 			);
 			path = Recipes;

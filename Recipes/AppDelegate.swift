@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        print("Docuemtn Directory \(applicationDocumentsDirectory.path)")
+        
+        print(persistentContainer.managedObjectModel)
+        
+        
         return true
     }
 
@@ -45,6 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Core Data stack
+    lazy var applicationDocumentsDirectory: URL = {
+       return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }()
+    
+    
+    
 
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -54,6 +65,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "Recipes")
+
+        
+        // Copy the default store (with a pre-populated data) into our Documents folder.
+        let documentsStorePath: String = applicationDocumentsDirectory.appendingPathComponent("Recipes.sqlite").path
+        if !FileManager.default.fileExists(atPath: documentsStorePath) {
+            if let defaultStorePath: String = Bundle.main.path(forResource: "Recipes", ofType: "sqlite") {
+                try? FileManager.default.copyItem(atPath: defaultStorePath, toPath: documentsStorePath)
+            }
+        }
+        
+        // Add the default store to our coordinator.
+        let defaultStoreURL: URL = URL(fileURLWithPath: documentsStorePath)
+        try! container.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
+                                                                configurationName: nil,
+                                                                at: defaultStoreURL,
+                                                                options: nil)
+        
+        
+        
+        // setup and add the user's store to our coordinator
+        let userStoreURL: URL = applicationDocumentsDirectory.appendingPathComponent("UserRecipes.sqlite")
+        try! container.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
+                                                                configurationName: nil,
+                                                                at: userStoreURL,
+                                                                options: nil)
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
