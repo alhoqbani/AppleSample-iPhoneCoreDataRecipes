@@ -30,15 +30,27 @@ class RecipeAddViewController: UIViewController {
     // MARK: Actions
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         
-        print("cancelButtonTapped")
+        // Delete the recipe from the context
         recipe.managedObjectContext?.delete(recipe)
-        
+        // Save the changes to delete the object from the context
+        if let context = recipe.managedObjectContext, context.hasChanges {
+            try! context.save()
+        }
+        // Call the delegate without a recipe.
         delegate?.controller(recipeAddViewController: self, didAddRecipe: nil)
-        
-        
     }
+    
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        print("saveButtonTapped")
+        saveRecipe()
+    }
+    
+    private func saveRecipe() {
+        recipe.name = nameTextField.text
+        if let context = recipe.managedObjectContext, context.hasChanges {
+            try! context.save()
+        }
+        
+        delegate?.controller(recipeAddViewController: self, didAddRecipe: recipe)
     }
 }
 
@@ -46,10 +58,11 @@ extension RecipeAddViewController: UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
+        saveRecipe()
         nameTextField.resignFirstResponder()
         return true
     }
+    
 }
 
 

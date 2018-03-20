@@ -13,9 +13,29 @@ class RecipeListTableViewController: UITableViewController {
     
     private enum Segue {
         static let addRecipe = "addRecipe"
+        static let showRecipe = "showRecipe"
     }
     
     var managedObjectContext: NSManagedObjectContext?
+    lazy var fetchedResultsController: NSFetchedResultsController<Recipe> = {
+        guard let context = self.managedObjectContext else {
+            fatalError("Could not create fetchedResultsController: no managedObjectContext")
+        }
+        
+        let fetchRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        // Edit the sort key as appropriate.
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        
+        // Edit the section name key path and cache name if appropriate.
+        // nil for section name key path means "no sections".
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                  managedObjectContext: context,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
+        fetchedResultsController.delegate = self
+        
+        return fetchedResultsController
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,35 +44,45 @@ class RecipeListTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+        // Add the table's edit button to the left side of the nav bar.
+         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        // Set the table view's row height.
+        self.tableView.rowHeight = 44.0;
+        
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return fetchedResultsController.sections?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if let sectionInfo = fetchedResultsController.sections?[section] {
+                return sectionInfo.numberOfObjects
+        }
         return 0
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+         // Dequeue a RecipeTableViewCell, then set its recipe to the recipe for the current row.
+        let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! RecipeTableViewCell
 
         // Configure the cell...
+        cell.recipe = fetchedResultsController.object(at: indexPath)
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -105,6 +135,17 @@ class RecipeListTableViewController: UITableViewController {
             recipeAddViewController.recipe = Recipe(context: self.managedObjectContext!)
             recipeAddViewController.delegate = self
             
+        case Segue.showRecipe:
+            guard let recipe = sender as? Recipe else {
+                fatalError("Sender is not a recipe")
+            }
+            
+            guard let recipeDetailTableViewController = segue.destination as? RecipeDetailTableViewController else {
+                fatalError("segue.destination is not RecipeDetailTableViewController")
+            }
+            
+            recipeDetailTableViewController.recipe = recipe
+            
         default:
             fatalError("Unknown segue.identifier: \(String(describing: segue.identifier))")
         }
@@ -118,7 +159,62 @@ extension RecipeListTableViewController: RecipeAddDelegate {
     
     
     func controller(recipeAddViewController controller: RecipeAddViewController, didAddRecipe recipe: Recipe?) {
+        
+        if let recipe = recipe {
+            print("present details controller")
+            
+            performSegue(withIdentifier: Segue.showRecipe, sender: recipe)
+            
+        }
+        
         dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension RecipeListTableViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .update:
+            tableView.cellForRow(at: indexPath!)
+        }
+        
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        let set = IndexSet(integer: sectionIndex)
+        
+        switch type {
+        case .insert:
+            tableView.insertSections(set, with: .fade)
+        case .delete:
+            tableView.deleteSections(set, with: .fade)
+        case .move:
+            fallthrough
+        case .update:
+            break
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        // The fetch controller has sent all current change notifications,
+        // so tell the table view to process all updates.
+        tableView.endUpdates()
     }
     
 }
