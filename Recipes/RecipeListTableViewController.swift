@@ -11,6 +11,10 @@ import CoreData
 
 class RecipeListTableViewController: UITableViewController {
     
+    private enum Segue {
+        static let addRecipe = "addRecipe"
+    }
+    
     var managedObjectContext: NSManagedObjectContext?
 
     override func viewDidLoad() {
@@ -85,14 +89,40 @@ class RecipeListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
+        guard let identifier = segue.identifier else { return }
+        
+        switch identifier {
+        case Segue.addRecipe:
+            guard let navigationVc = segue.destination as? UINavigationController,
+                let recipeAddViewController = navigationVc.topViewController as? RecipeAddViewController else {
+                fatalError("Could not cast vc destenation to RecipeAddViewController")
+            }
+            recipeAddViewController.recipe = Recipe(context: self.managedObjectContext!)
+            recipeAddViewController.delegate = self
+            
+        default:
+            fatalError("Unknown segue.identifier: \(String(describing: segue.identifier))")
+        }
+            
         // Pass the selected object to the new view controller.
     }
-    */
 
 }
+
+extension RecipeListTableViewController: RecipeAddDelegate {
+    
+    
+    func controller(recipeAddViewController controller: RecipeAddViewController, didAddRecipe recipe: Recipe?) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+
+
+

@@ -5,6 +5,8 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -35,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Krd-BS-PjR">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeCell" id="Krd-BS-PjR">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Krd-BS-PjR" id="jFp-BE-GgU">
@@ -50,12 +52,59 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="qy7-Rw-vgO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bnN-3Q-w7d"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bnN-3Q-w7d">
+                            <connections>
+                                <segue destination="FWF-tN-yYO" kind="presentation" identifier="addRecipe" id="Jjm-Ms-tmL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07Z-k6-Agf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1607" y="-100"/>
+        </scene>
+        <!--Add Recipe-->
+        <scene sceneID="s0G-ux-x3J">
+            <objects>
+                <viewController id="Epo-ti-s8i" customClass="RecipeAddViewController" customModule="Recipes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eGc-Kg-pim">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d4s-CR-DhW">
+                                <rect key="frame" x="16" y="87" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="d4s-CR-DhW" firstAttribute="top" secondItem="DQh-lx-RUo" secondAttribute="top" constant="23" id="3pn-Vz-vos"/>
+                            <constraint firstItem="d4s-CR-DhW" firstAttribute="trailing" secondItem="eGc-Kg-pim" secondAttribute="trailingMargin" id="Yly-Gi-NME"/>
+                            <constraint firstItem="d4s-CR-DhW" firstAttribute="leading" secondItem="eGc-Kg-pim" secondAttribute="leadingMargin" id="wSR-I7-KkZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DQh-lx-RUo"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Recipe" id="6RL-SZ-32g">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="mnm-8j-B1i">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="Epo-ti-s8i" id="wdR-sr-ix7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="2Wg-YJ-oJ5">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="Epo-ti-s8i" id="BoZ-m7-he4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="d4s-CR-DhW" id="HWM-1T-nLo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WvN-4i-gmH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3341.5999999999999" y="-100.29985007496252"/>
         </scene>
         <!--Recipes-->
         <scene sceneID="hnY-jB-ZuJ">
@@ -74,6 +123,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f7p-Ea-3Ut" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="673" y="-100"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SNd-67-eiN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FWF-tN-yYO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CAC-dd-kE0">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Epo-ti-s8i" kind="relationship" relationship="rootViewController" id="Jga-Wc-ayL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zyn-XO-yYu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2492.8000000000002" y="-98.050974512743636"/>
         </scene>
     </scenes>
     <resources>

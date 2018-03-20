@@ -71,15 +71,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Copy the default store (with a pre-populated data) into our Documents folder.
         let documentsStorePath: String = applicationDocumentsDirectory.appendingPathComponent("Recipes.sqlite").path
-        if !FileManager.default.fileExists(atPath: documentsStorePath) {
-            print(" ! fileExists \(documentsStorePath)")
-            if let defaultStorePath: String = Bundle.main.path(forResource: "Recipes", ofType: "sqlite") {
-                print("copyItem defaultStorePath \(defaultStorePath)")
-                try? FileManager.default.copyItem(atPath: defaultStorePath, toPath: documentsStorePath)
-            } else {
-                print("defaultStorePath is nil")
-            }
-        }
+
+
+        // We copy the pre-populated default store to the document directory.
+//        if !FileManager.default.fileExists(atPath: documentsStorePath) {
+//            print(" ! fileExists \(documentsStorePath)")
+//            if let defaultStorePath: String = Bundle.main.path(forResource: "Recipes", ofType: "sqlite") {
+//                print("copyItem defaultStorePath \(defaultStorePath)")
+//                try? FileManager.default.copyItem(atPath: defaultStorePath, toPath: documentsStorePath)
+//            } else {
+//                print("defaultStorePath is nil")
+//            }
+//        }
         
         // Add the default store to our coordinator.
         let defaultStoreURL: URL = URL(fileURLWithPath: documentsStorePath)
