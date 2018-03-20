@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         print("Docuemtn Directory \(applicationDocumentsDirectory.path)")
         
-        print(persistentContainer.managedObjectModel)
-        
+        let tabBarController = window!.rootViewController as! UITabBarController
+        let navigationController = tabBarController.viewControllers![0] as! UINavigationController
+        let recipeListTableViewController = navigationController.visibleViewController as! RecipeListTableViewController
+        recipeListTableViewController.managedObjectContext = persistentContainer.viewContext
         
         return true
     }
@@ -70,8 +72,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Copy the default store (with a pre-populated data) into our Documents folder.
         let documentsStorePath: String = applicationDocumentsDirectory.appendingPathComponent("Recipes.sqlite").path
         if !FileManager.default.fileExists(atPath: documentsStorePath) {
+            print(" ! fileExists \(documentsStorePath)")
             if let defaultStorePath: String = Bundle.main.path(forResource: "Recipes", ofType: "sqlite") {
+                print("copyItem defaultStorePath \(defaultStorePath)")
                 try? FileManager.default.copyItem(atPath: defaultStorePath, toPath: documentsStorePath)
+            } else {
+                print("defaultStorePath is nil")
             }
         }
         

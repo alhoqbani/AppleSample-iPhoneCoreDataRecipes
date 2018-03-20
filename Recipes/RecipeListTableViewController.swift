@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class RecipeListTableViewController: UITableViewController {
+    
+    var managedObjectContext: NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()

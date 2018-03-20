@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77669871206034F7007189BF /* Recipes.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 77B65B6C205FC1050033EE0C /* Recipes.sqlite */; };
 		77FAB55A205FB5BD00BE7326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FAB559205FB5BD00BE7326 /* AppDelegate.swift */; };
 		77FAB55F205FB5BD00BE7326 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77FAB55D205FB5BD00BE7326 /* Main.storyboard */; };
 		77FAB562205FB5BD00BE7326 /* Recipes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77FAB560205FB5BD00BE7326 /* Recipes.xcdatamodeld */; };
@@ -131,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77FAB567205FB5BD00BE7326 /* LaunchScreen.storyboard in Resources */,
+				77669871206034F7007189BF /* Recipes.sqlite in Resources */,
 				77FAB570205FB7FA00BE7326 /* Media.xcassets in Resources */,
 				77FAB55F205FB5BD00BE7326 /* Main.storyboard in Resources */,
 			);
