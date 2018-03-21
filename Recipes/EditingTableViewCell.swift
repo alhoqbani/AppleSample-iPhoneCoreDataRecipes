@@ -1,5 +1,5 @@
 //
-//  RecipeTableViewCell.swift
+//  EditingTableViewCell.swift
 //  Recipes
 //
 //  Created by Hamoud Alhoqbani on 3/20/18.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-class RecipeTableViewCell: UITableViewCell {
+class EditingTableViewCell: UITableViewCell {
+    
+    static let identifier = "IngredientsCell"
 
-    var recipe: Recipe? {
-        didSet {}
-    }
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var inputTextField: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

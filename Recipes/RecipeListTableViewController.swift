@@ -45,7 +45,7 @@ class RecipeListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // Add the table's edit button to the left side of the nav bar.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
         // Set the table view's row height.
         self.tableView.rowHeight = 44.0;
@@ -136,9 +136,16 @@ class RecipeListTableViewController: UITableViewController {
             recipeAddViewController.delegate = self
             
         case Segue.showRecipe:
-            guard let recipe = sender as? Recipe else {
-                fatalError("Sender is not a recipe")
+            var recipe: Recipe
+            // The sender is the actual recipe send from "didAddRecipe" delegate (user created a new recipe).
+            if sender is Recipe {
+                recipe = sender as! Recipe
+            } else {
+                // The sender is ourselves (user tapped an existing recipe).
+                let indexPath = tableView.indexPathForSelectedRow!
+                recipe = fetchedResultsController.object(at: indexPath)
             }
+            
             
             guard let recipeDetailTableViewController = segue.destination as? RecipeDetailTableViewController else {
                 fatalError("segue.destination is not RecipeDetailTableViewController")

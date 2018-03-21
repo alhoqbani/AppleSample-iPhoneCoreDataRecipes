@@ -12,6 +12,9 @@
 		776E93882060B17900DD81FD /* RecipeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776E93872060B17900DD81FD /* RecipeDetailTableViewController.swift */; };
 		776E938A2060FD7700DD81FD /* ImageToDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776E93892060FD7700DD81FD /* ImageToDataTransformer.swift */; };
 		776E938C20610ED700DD81FD /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776E938B20610ED700DD81FD /* RecipeTableViewCell.swift */; };
+		77F7DD752061E0F900DF5A2C /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F7DD742061E0F900DF5A2C /* InstructionsViewController.swift */; };
+		77F7DD792061FD3B00DF5A2C /* IngredientDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F7DD782061FD3B00DF5A2C /* IngredientDetailTableViewController.swift */; };
+		77F7DD7B2061FDC500DF5A2C /* EditingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F7DD7A2061FDC500DF5A2C /* EditingTableViewCell.swift */; };
 		77FAB55A205FB5BD00BE7326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FAB559205FB5BD00BE7326 /* AppDelegate.swift */; };
 		77FAB55F205FB5BD00BE7326 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77FAB55D205FB5BD00BE7326 /* Main.storyboard */; };
 		77FAB562205FB5BD00BE7326 /* Recipes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77FAB560205FB5BD00BE7326 /* Recipes.xcdatamodeld */; };
@@ -26,6 +29,9 @@
 		776E93892060FD7700DD81FD /* ImageToDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageToDataTransformer.swift; sourceTree = "<group>"; };
 		776E938B20610ED700DD81FD /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		77B65B6C205FC1050033EE0C /* Recipes.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Recipes.sqlite; sourceTree = "<group>"; };
+		77F7DD742061E0F900DF5A2C /* InstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
+		77F7DD782061FD3B00DF5A2C /* IngredientDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailTableViewController.swift; sourceTree = "<group>"; };
+		77F7DD7A2061FDC500DF5A2C /* EditingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewCell.swift; sourceTree = "<group>"; };
 		77FAB556205FB5BD00BE7326 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77FAB559205FB5BD00BE7326 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77FAB55E205FB5BD00BE7326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -80,6 +86,9 @@
 				776E93872060B17900DD81FD /* RecipeDetailTableViewController.swift */,
 				776E93892060FD7700DD81FD /* ImageToDataTransformer.swift */,
 				776E938B20610ED700DD81FD /* RecipeTableViewCell.swift */,
+				77F7DD742061E0F900DF5A2C /* InstructionsViewController.swift */,
+				77F7DD782061FD3B00DF5A2C /* IngredientDetailTableViewController.swift */,
+				77F7DD7A2061FDC500DF5A2C /* EditingTableViewCell.swift */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -159,10 +168,13 @@
 			files = (
 				776E93882060B17900DD81FD /* RecipeDetailTableViewController.swift in Sources */,
 				776E938620608BFE00DD81FD /* RecipeAddViewController.swift in Sources */,
+				77F7DD7B2061FDC500DF5A2C /* EditingTableViewCell.swift in Sources */,
 				776E938A2060FD7700DD81FD /* ImageToDataTransformer.swift in Sources */,
 				776E938C20610ED700DD81FD /* RecipeTableViewCell.swift in Sources */,
 				77FAB55A205FB5BD00BE7326 /* AppDelegate.swift in Sources */,
 				77FAB572205FB8F200BE7326 /* RecipeListTableViewController.swift in Sources */,
+				77F7DD752061E0F900DF5A2C /* InstructionsViewController.swift in Sources */,
+				77F7DD792061FD3B00DF5A2C /* IngredientDetailTableViewController.swift in Sources */,
 				77FAB562205FB5BD00BE7326 /* Recipes.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
