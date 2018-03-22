@@ -84,11 +84,11 @@
 				77FAB571205FB8F200BE7326 /* RecipeListTableViewController.swift */,
 				776E938520608BFE00DD81FD /* RecipeAddViewController.swift */,
 				776E93872060B17900DD81FD /* RecipeDetailTableViewController.swift */,
-				776E93892060FD7700DD81FD /* ImageToDataTransformer.swift */,
-				776E938B20610ED700DD81FD /* RecipeTableViewCell.swift */,
-				77F7DD742061E0F900DF5A2C /* InstructionsViewController.swift */,
 				77F7DD782061FD3B00DF5A2C /* IngredientDetailTableViewController.swift */,
+				776E938B20610ED700DD81FD /* RecipeTableViewCell.swift */,
 				77F7DD7A2061FDC500DF5A2C /* EditingTableViewCell.swift */,
+				77F7DD742061E0F900DF5A2C /* InstructionsViewController.swift */,
+				776E93892060FD7700DD81FD /* ImageToDataTransformer.swift */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";

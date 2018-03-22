@@ -7,7 +7,7 @@
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="displayOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString="Ingredient Name" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="ingredients" inverseEntity="Recipe" syncable="YES"/>
     </entity>
     <entity name="Recipe" representedClassName="Recipe" syncable="YES" codeGenerationType="class">
@@ -27,7 +27,7 @@
     <elements>
         <element name="Image" positionX="-216" positionY="-54" width="128" height="73"/>
         <element name="Ingredient" positionX="34" positionY="-123" width="128" height="105"/>
-        <element name="RecipeType" positionX="-209" positionY="252" width="128" height="75"/>
         <element name="Recipe" positionX="70" positionY="63" width="128" height="163"/>
+        <element name="RecipeType" positionX="-209" positionY="252" width="128" height="75"/>
     </elements>
 </model>

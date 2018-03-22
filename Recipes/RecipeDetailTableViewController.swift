@@ -391,7 +391,9 @@ class RecipeDetailTableViewController: UITableViewController, UITextFieldDelegat
                 let ingredientDetailTableViewController = navigationVc.topViewController as? IngredientDetailTableViewController else {
                     fatalError("Could not cast vc destenation to RecipeAddViewController")
             }
-            ingredientDetailTableViewController.recipe = recipe
+            
+            // The sender is the recipe passed by performSegue
+            ingredientDetailTableViewController.recipe = sender as? Recipe
             
         case Segue.showInstructions:
             if let  instructionsController = segue.destination as? InstructionsViewController {
