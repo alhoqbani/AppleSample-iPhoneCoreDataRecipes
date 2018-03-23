@@ -53,6 +53,7 @@ class RecipeListTableViewController: UITableViewController {
         
         do {
             try fetchedResultsController.performFetch()
+            tableView.reloadData()
         } catch {
             print(error)
         }
@@ -78,47 +79,28 @@ class RecipeListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath) as! RecipeTableViewCell
 
         // Configure the cell...
+        print("cell for row \(indexPath.row)")
         cell.recipe = fetchedResultsController.object(at: indexPath)
 
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
+    // MARK: - Table view delegate
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            managedObjectContext?.performAndWait {
+                managedObjectContext?.delete(fetchedResultsController.object(at: indexPath))
+                do {
+                    try managedObjectContext?.save()
+                } catch {
+                    print(error)
+                }
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
@@ -162,14 +144,13 @@ class RecipeListTableViewController: UITableViewController {
 
 }
 
+//: MARK: - Recipe support
 extension RecipeListTableViewController: RecipeAddDelegate {
     
-    
+    // When the RecipeAddViewController adds a new recipe vs cancel, we navigate to the recipe details controller
     func controller(recipeAddViewController controller: RecipeAddViewController, didAddRecipe recipe: Recipe?) {
         
         if let recipe = recipe {
-            print("present details controller")
-            
             performSegue(withIdentifier: Segue.showRecipe, sender: recipe)
             
         }
@@ -179,6 +160,8 @@ extension RecipeListTableViewController: RecipeAddDelegate {
     
 }
 
+
+//: MARK: - Fetch Results Delegate
 extension RecipeListTableViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -186,9 +169,8 @@ extension RecipeListTableViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
+
         switch type {
-        
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .fade)
         case .delete:
@@ -205,7 +187,7 @@ extension RecipeListTableViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         
         let set = IndexSet(integer: sectionIndex)
-        
+
         switch type {
         case .insert:
             tableView.insertSections(set, with: .fade)
